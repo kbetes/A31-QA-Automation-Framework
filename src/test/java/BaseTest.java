@@ -19,9 +19,8 @@ public class BaseTest {
     public static WebDriver driver = null;
     public static String url = null;
     public static WebDriverWait wait = null;
-
     Actions action = new Actions(driver);
-
+    static ThreadLocal<WebDriver> threadDriver;
     //public static FluentWait  fluentWait = null;
 
     @BeforeSuite
@@ -37,6 +36,8 @@ public class BaseTest {
         // LoginTests.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         url = BaseURL;
         driver.get(url);
+        threadDriver = new ThreadLocal<>();
+        threadDriver.set(driver);
          //Explicit wait - create class variable outside of indiv method, so it can be used across the code
         // then do the second part
         // wait until element is available or clickable, then click on it
